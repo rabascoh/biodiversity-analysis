@@ -73,8 +73,8 @@ function buildCharts(sample) {
     // Hint: Get the the top 10 otu_ids and map them in descending order  
     //  so the otu_ids with the most bacteria are last. 
 
-    var topTen = sampleResult.otu_ids.sort((a,b) =>
-    b.sample_values - a.sample_values).slice(0,10);
+    var topTen = otu_ids.sort((a,b) =>
+    b.otu_ids - a.otu_ids).slice(0,10);
     console.log(topTen)
     
     var yticks = topTen.map(id => 'OTU ' + id);
@@ -86,7 +86,12 @@ function buildCharts(sample) {
       y: yticks,
       type: "bar",
       orientation: "h",
-      text: otu_labels
+      text: otu_labels, 
+      transforms: [{
+        type: 'sort',
+        target: 'y',
+        order: 'descending'
+      }]
     }];
     // 9. Create the layout for the bar chart. 
     var barLayout = {
